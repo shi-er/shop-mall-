@@ -1,0 +1,80 @@
+body{background: #fafafa;}
+#juheapi_content{width: 100%;min-width: 1200px; background: #fafafa; padding: 10px 0; }
+.juheapi_content{width: 1200px; margin:0 auto; position: relative; font-family: "microsoft yahei";}
+#juheapi_nav{float:left;width: 130px; padding:0 22px 10px 26px; border:1px solid #e4e4e4; background: #fff;}
+#juheapi_main{float:right; width: 1010px;}
+/***left nav****/
+#juheapi_nav dl{border-bottom: 1px solid #eee; padding-bottom:4px;}
+#juheapi_nav dl:last-child{border-bottom: 0 none;}
+#juheapi_nav dt{font:normal 17px/17px "microsoft yahei"; color: #a3a3a3; padding:18px 0 14px 20px;}
+#juheapi_nav dd{padding-left: 20px; padding-bottom: 16px; height: 12px; line-height: 12px;}
+#juheapi_nav dd a{color:#666; font:normal 12px/12px '宋体';}
+#juheapi_nav dd a span{color: #bbb;}
+#juheapi_nav .active{background: url(../images/api_nav_active.png) left 0 no-repeat;}
+#juheapi_nav .active a{color: #00b7ee; font-weight: bold;}
+#juheapi_nav .active a span{color: #00b7ee; font-weight: bold;}
+/**main title**/
+#juheapi_main_title{padding:0 15px 10px 16px;}
+.juheapi_main_title{position: relative; height: 36px;}
+.juheapi_main_title h1{color: #777777; font-size: 18px; line-height: 36px; font-weight: 400;}
+.juheapi_main_title h1 span{color: #999;}
+.api_sort{position: absolute; top: 0; right: 80px;}
+.api_sort li{float: left; padding:0 4px; margin:0 15px; font-size: 14px; line-height: 36px;}
+.api_sort li a{display: inline-block; color: #777;}
+.api_sort .active a{color:#00B7EE;}
+.apiListIcon{position: absolute;right: 0; top: 10px; height: 16px; padding-left: 23px; width: 50px; border-left: 1px solid #e4e4e4;}
+.apiListIcon1{ background: url(../images/apiListicon.png) right -1px no-repeat; }
+.apiListIcon2{ background: url(../images/apiListicon.png) right -21px no-repeat; }
+#listIcona1{position: absolute; left: 23px; top: 0px; width: 16px; height: 16px;}
+#listIcona2{position: absolute; left: 56px; top: 0px; width: 16px; height: 16px;}
+/****juhe apis ***/
+/*ul1*/
+.juheapis_ul1 li{float:left;width: 190px; padding-right: 15px; padding-bottom: 13px;}
+.juheapis_ul1 li:nth-child(5n){padding-right: 0;}
+.juheapis_ul1 .juheapis_desc{background: #fff; position: relative; text-align: center; border: 1px solid #e4e4e4; height: 238px; border-radius: 2px;overflow: hidden;}
+.juheapis_ul1 .juheapis_desc img{width: 90px; height: 90px; margin: 40px auto 12px;}
+.juheapis_ul1 .juheapis_desc h2{font-weight: 400; padding:0 10px 17px;}
+.juheapis_ul1 .juheapis_desc h2 a{color: #666; font-size: 14px; line-height: 16px;width: 100%; display:inline-block;  text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.juheapis_ul1 .juheapis_desc h2 span{position: absolute; left:10px; top: 0;}
+.juheapis_desc h2 label{font-size: 12px; border-radius: 2px; padding:1px 6px; margin-right: 4px;}
+.color_juhe{color: #03c5ff; border: 1px solid #03c5ff;}
+.color_mianfei{color: #58d8a3; border: 1px solid #58d8a3;}
+.color_auto{color: #ff9445;border:1px solid #ff9445;}
+.color_disanfang{color: #0ad5cc; border: 1px solid #0ad5cc;}
+.juheapis_ul1 .juhe_desc_p1{display: none;}
+.juheapis_ul1 .juhe_desc_p2{height: 38px; background: url(../images/apiListicon2.png) 0 0 no-repeat;padding-top: 26px; line-height: 14px;}
+.juheapis_ul1 .juhe_desc_p2 span{float: left; width: 62px; color: #aaa; font-size: 12px; text-align: center;text-indent: 3px;}
+.juheapis_ul1 .juhe_desc_p2 span.juheicon1{width: 64px;}
+.juheapis_ul1 .juhe_desc_p2 span font{display: none;}
+.juheapis_ul1 .juheapi_price{display: none;}
+.juheapis_ul1 .freeuserBtn{display: none;}
+
+/*ul2*/
+.juheapis_ul2 li{padding-bottom: 13px;}
+.juheapis_ul2 .juheapis_desc{position: relative; height: 98px; padding: 30px 60px 30px 45px; background: #fff; border: 1px solid #e4e4e4;border-radius: 2px; overflow: hidden;}
+.juheapis_ul2 .juheapis_desc img{width: 90px; height: 90px; margin: 4px auto 12px;}
+.juheapis_ul2 .juheapis_desc h2{font-weight: 400; position: absolute;left: 180px; top: 38px; line-height: 20px;}
+.juheapis_ul2 .juheapis_desc h2 a{color: #666; font-size: 16px; line-height: 16px;}
+.juheapis_ul2 .juhe_desc_p1{position: absolute; top: 68px; left: 180px; color: #bbb; font-size: 12px; height: 14px; width: 600px; line-height: 14px; text-overflow:ellipsis; white-space:nowrap; overflow: hidden;}
+.juheapis_ul2 .juhe_desc_p2{position: absolute; top: 102px; left: 180px; height: 18px; line-height: 18px;}
+.juheapis_ul2 .juhe_desc_p2 span{float: left; width: 200px; color: #aaa; font-size: 14px; text-align: left;text-indent: 24px;}
+.juheapis_ul2 .juhe_desc_p2 .juheicon1{background: url(../images/apiListicon3.png) 0 3px no-repeat;text-indent: 26px; width: 200px;}
+.juheapis_ul2 .juhe_desc_p2 .juheicon2{background: url(../images/apiListicon3.png) 0 -17px no-repeat;}
+.juheapis_ul2 .juhe_desc_p2 .juheicon3{background: url(../images/apiListicon3.png) 0 -42px no-repeat;}
+.juheapis_ul2 .juheapi_price{position: absolute; right: 60px; top: 36px; color: #999;font-size: 12px;}
+.juheapis_ul2 .juheapi_price font{font-size: 16px; padding-right: 3px;}
+.juheapis_ul2 .freeuserBtn{position: absolute; right: 60px; top: 82px; width: 100px;}
+.juheapis_ul2 .freeuserBtn a{display: block; width: 100px; height: 28px; margin: 0 auto; border-radius: 2px; text-align: center; line-height: 28px; border: 1px solid #03c5ff; color: #03c5ff; background: #fff; font-size: 16px;}
+.juheapis_ul2 .freeuserBtn a:hover{background: #03c5ff; color: #fff;}
+.juheapis_ul2 .freeuserBtn span{display: none; position: absolute; right: -5px; top: 38px; width: 108px; height: 20px; line-height: 20px; color: #03c5ff; text-align: center; border-radius: 2px; border: 1px solid #03c5ff;background: #fff;font-size: 12px;}
+.juheapis_ul2 .freeuserBtn span:after,.juheapis_ul2 .freeuserBtn span:before{position: absolute;bottom: 100%;border:5px solid transparent;content:" ";width:0; height:0;pointer-events: none;}
+.juheapis_ul2 .freeuserBtn span:after{border-bottom-color:#fff;border-width:5px;left:50%;margin-left:-5px;}
+.juheapis_ul2 .freeuserBtn span:before{border-bottom-color:#03c5ff;border-width: 6px;left: 50%;margin-left: -6px;}
+
+/*paging*/
+#juheapi_paging{text-align: center; height: 24px; line-height: 24px; padding-top: 10px;padding-bottom: 20px;}
+#juheapi_paging a{font-weight: bold; color: #03c5ff; font-size: 14px; padding:5px 10px; border: 1px solid #e4e4e4; margin: 0 6px;}
+#juheapi_paging .pageSel{color:#777;border: 0 none;}
+#juheapi_paging .juheapi_prev,#juheapi_paging .juheapi_next{padding:5px 25px;}
+
+

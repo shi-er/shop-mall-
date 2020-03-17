@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="#springUrl('/static/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="#springUrl('/static/font-awesome/css/font-awesome.css')" rel="stylesheet">
+    <link href="#springUrl('/static/css/animate.css')" rel="stylesheet">
+    <link href="#springUrl('/static/css/style.css')" rel="stylesheet">
+    <link href="#springUrl('/static/css/style-custom.css')" rel="stylesheet">
+    <link href="#springUrl('/static/css/plugins/iCheck/custom.css')" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="middle-box loginscreen animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">&nbsp;</h1>
+        </div>
+        <h3 class="text-center">欢迎使用</h3>
+        <form class="m-t" role="form" method="post" action="#springUrl('/login')">
+            <div class="form-group">
+                <input type="text" name="mobile" id="mobile" class="form-control" placeholder="用户名" required="">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="密码" required="">
+            </div>
+            <div class="form-group form-inline">
+                <input type="text" id="code" name="code" class="form-control" style="width: 195px;" placeholder="验证码"
+                       required="">
+                <img id="imgObj" src="#springUrl('/validateCode')" onclick="changeImg()">
+            </div>
+            <div class="form-group form-inline">
+                <div class="checkbox i-checks">
+                    <label><input type="checkbox" name="rememberMe"><i></i>&nbsp;&nbsp;记住我</label>
+                </div>
+                <a href="">
+                    <small>忘记密码了？</small>
+                </a>
+            </div>
+            <button type="button" class="btn btn-primary block full-width m-b" onclick="submits()">登 录</button>
+            <a class="btn btn-sm btn-white btn-block" href="#springUrl('/register')">注册一个新账号</a>
+        </form>
+    </div>
+</div>
+<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
+<script src="#springUrl('/static/js/bootstrap.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/iCheck/icheck.min.js')"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    });
+
+    // 刷新图片
+    function changeImg() {
+        var imgSrc = $("#imgObj");
+        var src = imgSrc.attr("src");
+        imgSrc.attr("src", changeUrl(src));
+    }
+
+    //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+    function changeUrl(url) {
+        var timestamp = (new Date()).valueOf();
+        var index = url.indexOf("?", url);
+        if (index > 0) {
+            url = url.substring(index, url.indexOf(url, "?"));
+        }
+        if ((url.indexOf("&") >= 0)) {
+            url = url + "×tamp=" + timestamp;
+        } else {
+            url = url + "?timestamp=" + timestamp;
+        }
+        return url;
+    }
+
+    function submits() {
+        var code = $("#code").val();
+        var mobile = $("#mobile").val();
+        var password = $("#password").val();
+        $.ajax({
+            type: "POST",
+            url: "#springUrl('/validate')",
+            data: {
+                code: code,
+                password: password,
+                mobile: mobile
+            },
+            dataType: "text",
+            success: function (data) {
+                if (data === 'true') {
+                    location.href = "/dashboard";
+                } else {
+                    alert(data.toString());
+                    changeImg();
+                    return false;
+                }
+            }, error: function () {
+                alert('请重新输入验证码!');
+                changeImg();
+                return false;
+            }
+        });
+    }
+</script>
+</body>
+</html>

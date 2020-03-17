@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.goods.mapper.ShGoodsCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.goods.model.ShGoodsCategory">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="thumb_url" property="thumbUrl" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, count, sort, thumb_url, pid, create_time, modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods_category
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_goods_category
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.goods.model.ShGoodsCategory">
+    insert into sh_goods_category (id, name, count, 
+      sort, thumb_url, pid, 
+      create_time, modify_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{sort,jdbcType=INTEGER}, #{thumbUrl,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.goods.model.ShGoodsCategory">
+        insert into sh_goods_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="thumbUrl != null">
+                thumb_url,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="thumbUrl != null">
+                #{thumbUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.goods.model.ShGoodsCategory">
+        update sh_goods_category
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                count = #{count,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="thumbUrl != null">
+                thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.goods.model.ShGoodsCategory">
+    update sh_goods_category
+    set name = #{name,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      thumb_url = #{thumbUrl,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods_category
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.pid != null">
+            and pid = #{queryObject.pid}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.count != null">
+            and count = #{queryObject.count}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_goods_category
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.pid != null">
+            and pid = #{queryObject.pid}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.count != null">
+            and count = #{queryObject.count}
+        </if>
+    </select>
+</mapper>

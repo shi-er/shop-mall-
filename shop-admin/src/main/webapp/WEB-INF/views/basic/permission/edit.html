@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="#springUrl('/static/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="#springUrl('/static/css/style.css')" rel="stylesheet">
+</head>
+<body class="white-bg">
+<div class="ibox-content" style="width: 100%;">
+    <form id="myForm" class="form-horizontal" autocomplete="off" data-validator-option="{theme:'default'}">
+        <input type="hidden" name="id" value="$!{permission.id}">
+        <input type="hidden" name="pid" value="$!{pid}">
+        <div class="form-group"><label class="col-sm-2 control-label">名称 *</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" value="$!{permission.title}" placeholder="请输入权限名称"
+                       data-rule="权限名称:required;name">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group"><label class="col-sm-2 control-label">状态 *</label>
+            <div class="col-sm-10">
+                <select id="state" name="state" class="form-control">
+                    <option value="1" #if($!{permission.icon}&&$!{permission.state}==1) selected #end>可用</option>
+                    <option value="0" #if($!{permission.icon}&&$!{permission.state}==0) selected #end>不可用</option>
+                </select>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group"><label class="col-sm-2 control-label">连接地址 *</label>
+            <span>菜单为：/demo/、子菜单为：/demo/demo.html</span>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="url" value="$!{permission.url}"
+                       placeholder="请输入地址:例如 /merchant/" data-rule="地址:required;">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group"><label class="col-sm-2 control-label">权限编码 *</label>
+            <span>菜单为：0100、子菜单为：0101、0102</span>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="permcode" value="$!{permission.permcode}"
+                       placeholder="请输入权限编码" data-rule="权限编码:required;">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group"><label class="col-sm-2 control-label">图标</label>
+            <div class="col-sm-10">
+                <select id="icon" name="icon" class="form-control">
+                    #foreach( $!icons in $!iconList)
+                    <option value="$!{icons.icon}"
+                            #if($!{permission.icon}&&$!{permission.icon}==$!{icons.icon}) selected #end>
+                        $!{icons.iconName}
+                    </option>
+                    #end
+                </select>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group"><label class="col-sm-2 control-label">描述</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="description" value="$!{permission.description}"
+                       placeholder="请输入简单描述">
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">提 交</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script charset="utf-8" src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
+<script charset="utf-8" src="#springUrl('/static/js/common.js')"></script>
+<script charset="utf-8" src="#springUrl('/static/js/bootstrap.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/plugins/nice-validator-0.8.1/jquery.validator.js?local=zh-CN')"></script>
+<script type="text/javascript">
+    $("#myForm").validator({
+        valid: function (form) {
+            var me = this;
+            // 提交表单之前，hold住表单，防止重复提交
+            me.holdSubmit();
+            $.ajax({
+                url: "#springUrl('/basic/permission/update.html')",
+                data: $(form).serialize(),
+                type: "POST",
+                dataType: "text",
+                success: function (data) {
+                    if (data === 'true') {
+                        alert("编辑成功！");
+                        window.parent.location.reload();
+                    } else {
+                        alert("编辑失败!");
+                    }
+                    layer.closeAll();
+                }, error: function () {
+                    alert("编辑失败!");
+                    layer.closeAll();
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

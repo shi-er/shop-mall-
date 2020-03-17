@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("/common/nav_header.html")
+    <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+</head>
+<body style="background-color: unset">
+<div class="row">
+    <div class="text-right form-inline" style="margin-right: 20px;">
+        <input type="hidden" class="form-control" id="rid" value="$!{roleId}">
+        <input type="text" class="form-control" id="permCode" placeholder="权限编码">
+        <button class="btn btn-primary" onclick="search()" type="button">
+            <i class="fa fa-search"></i>搜索&nbsp;
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#parse("/common/nav_css.html")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')?t=$!{jsrversion}"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/basic/role/permission/getList.html')";
+    var dataColumns = [{
+        field: 'id',
+        title: 'ID'
+    }, {
+        field: 'title',
+        title: '名称'
+    }, {
+        field: 'parentName',
+        title: '父权限'
+    }, {
+        field: 'type',
+        title: '类型',
+        formatter: function (value, row, index) {
+            if (0 === row.type) {
+                return '菜单';
+            } else {
+                return "功能";
+            }
+        }
+    }, {
+        field: 'state',
+        title: '状态',
+        formatter: function (value, row, index) {
+            if (0 === row.state) {
+                return '禁用';
+            } else {
+                return "正常";
+            }
+        }
+    }, {
+        field: 'permcode',
+        title: '权限code'
+    }, {
+        field: 'description',
+        title: '描述'
+    }, {
+        field: 'status',
+        title: '角色权限状态',
+        formatter: function (value, row, index) {
+            var id = row.id;
+            if (row.status === 1) {
+                return "<span id='kaitong_" + id + "'>已开通</span>";
+            } else {
+                return "<span id='kaitong_" + id + "'>未开通</span>";
+            }
+        }
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var id = row.id;
+            var status = row.status;
+            if (status === 1) {
+                return '<button class="btn btn-xs btn-danger" id="kaitongBtn_' + id + '" onclick="updateRolePermission(' + "'" + id + "'" + ',0)"><i class="fa fa-pencil"></i>取消</button>';
+            } else {
+                return '<button class="btn btn-xs btn-success" id="kaitongBtn_' + id + '"onclick="updateRolePermission(' + "'" + id + "'" + ',1)"><i class="fa fa-pencil"></i>开通</button>';
+            }
+        }
+    }
+    ];
+
+    function dataQueryParams(params) {
+        var permCode = $("#permCode").val();
+        var rid = $("#rid").val();
+        return {
+            permCode: permCode,
+            rid: rid,
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+    function search() {
+        var table = $('#dataTable');
+        var params = {limit: 15, offset: 0};
+        table.bootstrapTable('refresh', {
+            queryParams: dataQueryParams(params)
+        });
+    }
+
+    /**
+     * 添加权限
+     * @param id
+     */
+    function updateRolePermission(id, status) {
+        //询问框
+        var rid = $("#rid").val();
+        $.ajax({
+            type: "POST",
+            url: "#springUrl('/basic/role/permission/update.html')",
+            data: {'id': id, 'status': status, 'rid': rid},
+            success: function (data) {
+                if (data == 'true') {
+                    //$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+                    if (status == 1) {
+                        $("#kaitong_" + id).html("开通");
+                        $("#kaitongBtn_" + id).html('<i class="fa fa-pencil"></i>取消');
+                        $("#kaitongBtn_" + id).attr('onclick', 'updateItem(' + "'" + id + "'" + ',0)');
+                        $("#kaitongBtn_" + id).removeClass("btn-success").addClass("btn-danger");
+                    } else if (status == 0) {
+                        $("#kaitong_" + id).html("未开通");
+                        $("#kaitongBtn_" + id).html('<i class="fa fa-pencil"></i>开通');
+                        $("#kaitongBtn_" + id).attr('onclick', 'updateItem(' + "'" + id + "'" + ',1)');
+                        $("#kaitongBtn_" + id).removeClass("btn-danger").addClass("btn-success");
+                    }
+                }
+                layer.closeAll();
+            }
+        });
+    }
+</script>
+</body>

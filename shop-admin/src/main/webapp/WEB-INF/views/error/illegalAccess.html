@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("/common/nav_header.html")
+</head>
+<body>
+<div id="wrapper">
+    #parse("/common/nav_left.html")
+    <!--右侧部分开始-->
+    <!--右侧栏-->
+    <div id="page-wrapper" class="gray-bg" style="min-height: 591px;">
+        <!--顶部标题栏-->
+        #parse("/common/nav_title.html")
+        <div class="middle-box text-center animated fadeInDown">
+            <h1>error</h1>
+            <h3 class="font-bold">非法访问</h3>
+            <div class="error-desc">
+                抱歉你无该页面访问权限，请联系管理员...
+                <br/>您可以返回主页看看
+                <br/><a href="#springUrl('/index.html')" class="btn btn-primary m-t">主页</a>
+            </div>
+        </div>
+        <!--页面内容部分-->
+        #parse("/common/nav_foot.html")
+    </div>
+    <!--右侧部分结束-->
+</div>
+#parse("/common/nav_css.html")
+</body>

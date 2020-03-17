@@ -1,0 +1,22 @@
+<div class="wrapper wrapper-content animated fadeInRight"></div>
+<div class="footer">
+    <div class="pull-right">
+        <!--10GB of <strong>250GB</strong> Free.-->
+        <a target="_blank" style="color: #676a6c;" onclick="cleanCache();">清缓存</a>
+    </div>
+    <div>
+        <strong>Welcome</strong> liyunbiao.com © 2018-2021
+    </div>
+</div>
+<script type="text/javascript">
+    function cleanCache() {
+        $.ajax({
+            type: "GET",
+            url: "#springUrl('/clear/ehcache')",
+            datatype: "json",
+            success: function (data) {
+                alert("清除完成")
+            }
+        });
+    }
+</script>

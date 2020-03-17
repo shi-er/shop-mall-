@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShBankLianhanghaoMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShBankLianhanghao">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="bankId" property="bankid" jdbcType="INTEGER"/>
+        <result column="bank" property="bank" jdbcType="VARCHAR"/>
+        <result column="bankNumber" property="banknumber" jdbcType="VARCHAR"/>
+        <result column="bankName" property="bankname" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="provinceName" property="provincename" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="cityName" property="cityname" jdbcType="VARCHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="modifyTime" property="modifytime" jdbcType="TIMESTAMP"/>
+        <result column="swift" property="swift" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, bankId, bank, bankNumber, bankName, province, provinceName, city, cityName, area, 
+    area_name, phone, address, createTime, modifyTime, swift
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_bank_lianhanghao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShBankLianhanghao">
+    insert into sh_bank_lianhanghao (id, bankId, bank, 
+      bankNumber, bankName, province, 
+      provinceName, city, cityName, 
+      area, area_name, phone, 
+      address, createTime, modifyTime, 
+      swift)
+    values (#{id,jdbcType=INTEGER}, #{bankid,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR}, 
+      #{banknumber,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{provincename,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{cityname,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, 
+      #{swift,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShBankLianhanghao">
+        insert into sh_bank_lianhanghao
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bankid != null">
+                bankId,
+            </if>
+            <if test="bank != null">
+                bank,
+            </if>
+            <if test="banknumber != null">
+                bankNumber,
+            </if>
+            <if test="bankname != null">
+                bankName,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="provincename != null">
+                provinceName,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="cityname != null">
+                cityName,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="areaName != null">
+                area_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="modifytime != null">
+                modifyTime,
+            </if>
+            <if test="swift != null">
+                swift,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bankid != null">
+                #{bankid,jdbcType=INTEGER},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="banknumber != null">
+                #{banknumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bankname != null">
+                #{bankname,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="provincename != null">
+                #{provincename,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="cityname != null">
+                #{cityname,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="areaName != null">
+                #{areaName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="swift != null">
+                #{swift,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShBankLianhanghao">
+        update sh_bank_lianhanghao
+        <set>
+            <if test="bankid != null">
+                bankId = #{bankid,jdbcType=INTEGER},
+            </if>
+            <if test="bank != null">
+                bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="banknumber != null">
+                bankNumber = #{banknumber,jdbcType=VARCHAR},
+            </if>
+            <if test="bankname != null">
+                bankName = #{bankname,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="provincename != null">
+                provinceName = #{provincename,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="cityname != null">
+                cityName = #{cityname,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="areaName != null">
+                area_name = #{areaName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="swift != null">
+                swift = #{swift,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShBankLianhanghao">
+    update sh_bank_lianhanghao
+    set bankId = #{bankid,jdbcType=INTEGER},
+      bank = #{bank,jdbcType=VARCHAR},
+      bankNumber = #{banknumber,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      provinceName = #{provincename,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      cityName = #{cityname,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      swift = #{swift,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao
+        where bank like #{bankType,jdbcType=VARCHAR}
+        and concat(provinceName, cityName) like #{bankRegion,jdbcType=VARCHAR}
+        and bankName like #{bankName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBankName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao
+        where bankName like #{bankName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBankNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao
+        where bankNumber like #{banknumber,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectListByLianhanghao" resultMap="BaseResultMap"
+            parameterType="com.li.yun.biao.user.model.ShBankLianhanghao">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao tb
+        where 1=1
+        <if test="bankid != null and bankid != '' ">
+            and tb.bankId = #{bankid}
+        </if>
+        <if test="province != null and province != '' ">
+            and tb.province = #{province}
+        </if>
+        <if test="city != null and city != '' ">
+            and tb.city = #{city}
+        </if>
+        <if test="area != null and area != '' ">
+            and tb.area = #{area}
+        </if>
+    </select>
+
+    <!--自定义-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="getResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_lianhanghao
+        where 1=1
+        <if test="queryObject!=null and queryObject.bankid != null">
+            and bankId = #{queryObject.bankid,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.bank != null">
+            and bank = #{queryObject.bank,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.banknumber != null">
+            and bankNumber = #{queryObject.banknumber,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bankname != null">
+            and bankName LIKE CONCAT(CONCAT('%', #{queryObject.bankname,jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="queryObject!=null and queryObject.province != null">
+            and province = #{queryObject.province,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.provincename != null">
+            and provinceName = #{queryObject.provincename,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.city != null">
+            and city = #{queryObject.city,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.cityname != null">
+            and cityName = #{queryObject.cityname,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.phone != null">
+            and phone = #{queryObject.phone,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.address != null">
+            and address = #{queryObject.address,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.startModifyTime != null ">
+            <![CDATA[ and modifyTime >= #{queryObject.startModifyTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endModifyTime != null ">
+            <![CDATA[ and modifyTime <= #{queryObject.endModifyTime}]]>
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_bank_lianhanghao
+        where 1=1
+        <if test="queryObject!=null and queryObject.bankid != null">
+            and bankId = #{queryObject.bankid,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.bank != null">
+            and bank = #{queryObject.bank,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.banknumber != null">
+            and bankNumber = #{queryObject.banknumber,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bankname != null">
+            and bankName LIKE CONCAT(CONCAT('%', #{queryObject.bankname,jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="queryObject!=null and queryObject.province != null">
+            and province = #{queryObject.province,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.provincename != null">
+            and provinceName = #{queryObject.provincename,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.city != null">
+            and city = #{queryObject.city,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.cityname != null">
+            and cityName = #{queryObject.cityname,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.phone != null">
+            and phone = #{queryObject.phone,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.address != null">
+            and address = #{queryObject.address,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.startModifyTime != null ">
+            <![CDATA[ and modifyTime >= #{queryObject.startModifyTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endModifyTime != null ">
+            <![CDATA[ and modifyTime <= #{queryObject.endModifyTime}]]>
+        </if>
+    </select>
+</mapper>

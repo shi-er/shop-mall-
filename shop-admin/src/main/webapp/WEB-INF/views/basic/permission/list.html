@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("/common/nav_header.html")
+    <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+    #parse("/common/nav_left.html")
+    <!--右侧部分开始-->
+    <!--右侧栏-->
+    <div id="page-wrapper" class="gray-bg" style="min-height: 591px;">
+        <!--顶部标题栏-->
+        #parse("/common/nav_title.html")
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>商城管理</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#">基础信息</a>
+                    </li>
+                    <li class="active">
+                        <strong>权限管理</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="ibox-content text-right form-inline"
+                 style="background: #F3F3F4;">
+                <div class="input-group" style="float: left;">
+                    <button type="button" class="btn btn-info" onclick="addPermission();">添加权限</button>
+                </div>
+                <div class="input-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="permCode" placeholder="权限code">
+                    </div>
+                    <div class="input-group">
+                        <select class="form-control m-b" id="type">
+                            <option value="" selected>类型</option>
+                            <option value="0">菜单</option>
+                            <option value="1">功能</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-info" onclick="search();">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="dataTable"></table>
+            </div>
+        </div>
+
+        <!--页面内容部分-->
+        #parse("/common/nav_foot.html")
+    </div>
+    <!--右侧部分结束-->
+</div>
+#parse("/common/nav_css.html")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')?t=$!{jsrversion}"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/basic/permission/getList.html')";
+    var dataColumns = [{
+        field: 'id',
+        title: 'ID'
+    }, {
+        field: 'pid',
+        title: 'PID'
+    }, {
+        field: 'title',
+        title: '标题'
+    }, {
+        field: 'type',
+        title: '类型',
+        formatter: function (value, row, index) {
+            if (0 === row.type) {
+                return '菜单';
+            } else {
+                return "功能";
+            }
+        }
+    }, {
+        field: 'state',
+        title: '状态',
+        formatter: function (value, row, index) {
+            if (0 === row.state) {
+                return '禁用';
+            } else {
+                return "正常";
+            }
+        }
+    }, {
+        field: 'url',
+        title: '地址'
+    }, {
+        field: 'permcode',
+        title: '权限code'
+    }, {
+        field: 'icon',
+        title: '图标'
+    }, {
+        field: 'sort',
+        title: '排序'
+    }, {
+        field: 'description',
+        title: '描述'
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var returns =
+                '<button class="btn btn-xs btn-success" onclick="updateSort(' + "'" + row.id + "'" + ',' + "'" + row.sort + "'" + ',0)"><i class="fa fa-toggle-up"></i>置顶</button>&nbsp;' +
+                '<button class="btn btn-xs btn-primary" onclick="updateSort(' + "'" + row.id + "'" + ',' + "'" + row.sort + "'" + ',1)"><i class="fa "></i>上移</button>&nbsp;' +
+                '<button class="btn btn-xs btn-warning" onclick="updateSort(' + "'" + row.id + "'" + ',' + "'" + row.sort + "'" + ',2)"><i class="fa "></i>下移</button>&nbsp;' +
+                '<button class="btn btn-xs btn-white" onclick="addPermission(' + "'" + row.id + "'" + ')"><i class="fa "></i>编辑</button>&nbsp';
+            if (0 === row.type) {
+                returns = returns + '<button class="btn btn-xs btn-primary" onclick="addPermission(' + "'" + row.id + "'" + ',1)"><i class="fa "></i>添加子菜单</button>';
+            }
+            return returns;
+        }
+    }
+    ];
+
+    function dataQueryParams(params) {
+        var permCode = $("#permCode").val();
+        var type =$("#type").val();
+        return {
+            permCode: permCode,
+            type:type,
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+    function search() {
+        var table = $('#dataTable');
+        var params = {limit: 15, offset: 0};
+        table.bootstrapTable('refresh', {
+            queryParams: dataQueryParams(params)
+        });
+    }
+
+    /**
+     * 添加权限
+     * @param id
+     * @param type
+     */
+    function addPermission(id, type) {
+        var title = "添加权限";
+        var url = "#springUrl('/basic/permission/edit.html')";
+        if (null != id) {
+            title = "编辑权限";
+            if (type === 1) {
+                url = url + "?pid=" + id;
+            } else {
+                url = url + "?id=" + id;
+            }
+        }
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            scrollbar: false,
+            shade: 0.8,
+            area: ['50%', '70%'],
+            fix: false,
+            maxMin: true,
+            content: url
+        });
+    }
+
+    /**
+     * 排序
+     * @param id
+     * @param sort
+     *  @param status
+     */
+    function updateSort(id, sort, status) {
+        $.ajax({
+            type: "POST",
+            url: "#springUrl('/basic/permission/update/sort.html')",
+            data: {id: id, sort: sort, status: status},
+            dataType: "text",
+            success: function (data) {
+                if (data === 'true') {
+                    alert("操作成功!");
+                } else {
+                    alert(data);
+                }
+                window.parent.location.reload();
+            }, error: function () {
+                alert("操作失败!");
+                window.parent.location.reload();
+            }
+        });
+    }
+
+</script>
+</body>

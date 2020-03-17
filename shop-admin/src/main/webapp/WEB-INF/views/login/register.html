@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/style-custom.css" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="#springUrl('/static/css/plugins/iCheck/custom.css')" rel="stylesheet">
+    <style type="text/css">
+        .captcha .n-right .msg-wrap {
+            margin-left: 118px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group img, input[type="button"] {
+            float: right;
+        }
+
+        .form-group .checkbox label {
+            padding-left: 0;
+        }
+
+        .btn-primary[disabled], .btn-primary[disabled]:hover {
+            color: #fff;
+            border-color: #ccc;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">&nbsp;</h1>
+        </div>
+        <h3>欢迎注册</h3>
+        <p>创建一个新账户</p>
+
+        <form id="registerForm" class="m-t" role="form" method="post" action="/register">
+            <div class="form-group">
+                <input type="text" id="mobile" name="mobile" class="form-control" placeholder="请输入手机号"
+                       data-rule="手机号码:required;mobile;">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码"
+                       data-rule="密码:required;password;">
+            </div>
+            <div class="form-group form-inline">
+                <input type="text" id="code" name="code" class="form-control" style="width: 195px;" placeholder="验证码"
+                       required="">
+                <img id="imgObj" src="/validateCode" onclick="changeImg()">
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks"><label>
+                    <input type="checkbox" data-rule="required;checked;"><i></i>&nbsp;&nbsp;我同意注册协议</label>
+                </div>
+            </div>
+            <button id="register" type="button" class="btn btn-primary block full-width m-b" onclick="submits()">注 册
+            </button>
+            <a class="btn btn-sm btn-white btn-block" href="/login">点此登录</a>
+        </form>
+    </div>
+</div>
+</body>
+<script src="/static/js/jquery-2.1.1.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+        $('.i-checks').iCheck('check');
+        $('.i-checks').on('ifUnchecked', function () {
+            $('#register').attr('disabled', true);
+        });
+        $('.i-checks').on('ifChecked', function () {
+            $('#register').removeAttr('disabled');
+        })
+    });
+
+    // 刷新图片
+    function changeImg() {
+        var imgSrc = $("#imgObj");
+        var src = imgSrc.attr("src");
+        imgSrc.attr("src", changeUrl(src));
+    }
+
+    //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+    function changeUrl(url) {
+        var timestamp = (new Date()).valueOf();
+        var index = url.indexOf("?", url);
+        if (index > 0) {
+            url = url.substring(index, url.indexOf(url, "?"));
+        }
+        if ((url.indexOf("&") >= 0)) {
+            url = url + "×tamp=" + timestamp;
+        } else {
+            url = url + "?timestamp=" + timestamp;
+        }
+        return url;
+    }
+
+    function submits() {
+        var code = $("#code").val();
+        var mobile = $("#mobile").val();
+        var password = $("#password").val();
+        $.ajax({
+            type: "POST",
+            url: "/register/validate",
+            data: {
+                code: code,
+                password: password,
+                mobile: mobile
+            },
+            dataType: "text",
+            success: function (data) {
+                if (data === 'true') {
+                    location.href = "/login";
+                } else {
+                    alert(data.toString());
+                    changeImg();
+                    return false;
+                }
+            }, error: function () {
+                alert('请重新输入验证码!');
+                changeImg();
+                return false;
+            }
+        });
+    }
+
+</script>

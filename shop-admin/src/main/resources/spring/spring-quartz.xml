@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.li.yun.biao.admin.schdule"/>
+    <!--配置调度器工厂 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序-->
+    <bean id="schedule" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+        <!-- 触发器列表 -->
+        <property name="triggers">
+            <list>
+                <ref bean="user_register_trigger"/>
+                <ref bean="user_login_trigger"/>
+                <ref bean="user_bank_card_trigger"/>
+                <ref bean="user_sign_trigger"/>
+                <ref bean="good_add_trigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--用户注册，每10分钟行一次-->
+    <bean id="user_register_trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userRegisterTrigger"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="userRegisterTrigger" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="schduleUserRegister"/>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="userRegister"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--用户登陆，每10分钟行一次-->
+    <bean id="user_login_trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userLoginTrigger"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0 0/10 * * * ?"/>
+    </bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="userLoginTrigger" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="schduleUserRegister"/>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="userLogin"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--添加银行卡，每20分钟一次-->
+    <bean id="user_bank_card_trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userBankCardTrigger"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0 0/20 * * * ?"/>
+    </bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="userBankCardTrigger" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="schduleUserRegister"/>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="userBankCardAdd"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--签到,每天凌晨1点执行-->
+    <bean id="user_sign_trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="userSignTrigger"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="00 00 01 * * ?"/>
+    </bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="userSignTrigger" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="schduleUserRegister"/>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="sign"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+    <!--添加商品，每59分钟一次-->
+    <bean id="good_add_trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="goodAddTrigger"/>
+        <!-- cron表达式 -->
+        <property name="cronExpression" value="0 0/59 * * * ?"/>
+    </bean>
+    <!-- 定义调用对象和调用对象的方法 -->
+    <bean id="goodAddTrigger" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="targetObject" ref="schduleGoods"/>
+        <!-- 调用类中的方法 -->
+        <property name="targetMethod" value="addGoods"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+</beans>

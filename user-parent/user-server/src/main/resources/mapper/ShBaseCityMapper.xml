@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShBaseCityMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShBaseCity">
+        <id column="code" property="code" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="province_code" property="provinceCode" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    code, name, province_code
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_city
+        where code = #{code,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_base_city
+    where code = #{code,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShBaseCity">
+    insert into sh_base_city (code, name, province_code
+      )
+    values (#{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{provinceCode,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShBaseCity">
+        insert into sh_base_city
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="provinceCode != null">
+                province_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                #{provinceCode,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShBaseCity">
+        update sh_base_city
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                province_code = #{provinceCode,jdbcType=INTEGER},
+            </if>
+        </set>
+        where code = #{code,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShBaseCity">
+    update sh_base_city
+    set name = #{name,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=INTEGER}
+    where code = #{code,jdbcType=INTEGER}
+  </update>
+
+    <select id="getBaseCityList" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_city
+        where 1=1
+        <if test="provinceCode!=null and provinceCode!=''">
+            and province_code = #{provinceCode,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getCityByProvinceCodeAndCityName" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_city
+        where 1=1
+        <if test="provinceCode!=null and provinceCode!=''">
+            and province_code = #{provinceCode,jdbcType=INTEGER}
+        </if>
+        <if test="cityName!=null and cityName!=''">
+            and name = #{cityName,jdbcType=VARCHAR}
+        </if>
+        limit 0,1;
+    </select>
+</mapper>

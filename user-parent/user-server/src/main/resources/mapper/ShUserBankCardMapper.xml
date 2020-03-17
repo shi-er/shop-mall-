@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShUserBankCardMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShUserBankCard">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="BIN" property="bin" jdbcType="VARCHAR"/>
+        <result column="card_no" property="cardNo" jdbcType="VARCHAR"/>
+        <result column="card_type" property="cardType" jdbcType="INTEGER"/>
+        <result column="card_name" property="cardName" jdbcType="VARCHAR"/>
+        <result column="bank_name" property="bankName" jdbcType="VARCHAR"/>
+        <result column="bank_code" property="bankCode" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="contact_mobile" property="contactMobile" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="valid_date" property="validDate" jdbcType="VARCHAR"/>
+        <result column="vcode" property="vcode" jdbcType="VARCHAR"/>
+        <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, uid, status, BIN, card_no, card_type, card_name, bank_name, bank_code, account_name, 
+    contact_mobile, description, valid_date, vcode, id_number, create_time, modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_bank_card
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_user_bank_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShUserBankCard">
+    insert into sh_user_bank_card (id, uid, status, 
+      BIN, card_no, card_type, 
+      card_name, bank_name, bank_code, 
+      account_name, contact_mobile, description, 
+      valid_date, vcode, id_number, 
+      create_time, modify_time)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{bin,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{cardType,jdbcType=INTEGER}, 
+      #{cardName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR}, #{contactMobile,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{validDate,jdbcType=VARCHAR}, #{vcode,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShUserBankCard">
+        insert into sh_user_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="bin != null">
+                BIN,
+            </if>
+            <if test="cardNo != null">
+                card_no,
+            </if>
+            <if test="cardType != null">
+                card_type,
+            </if>
+            <if test="cardName != null">
+                card_name,
+            </if>
+            <if test="bankName != null">
+                bank_name,
+            </if>
+            <if test="bankCode != null">
+                bank_code,
+            </if>
+            <if test="accountName != null">
+                account_name,
+            </if>
+            <if test="contactMobile != null">
+                contact_mobile,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="validDate != null">
+                valid_date,
+            </if>
+            <if test="vcode != null">
+                vcode,
+            </if>
+            <if test="idNumber != null">
+                id_number,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="bin != null">
+                #{bin,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNo != null">
+                #{cardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cardType != null">
+                #{cardType,jdbcType=INTEGER},
+            </if>
+            <if test="cardName != null">
+                #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCode != null">
+                #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactMobile != null">
+                #{contactMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="validDate != null">
+                #{validDate,jdbcType=VARCHAR},
+            </if>
+            <if test="vcode != null">
+                #{vcode,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null">
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShUserBankCard">
+        update sh_user_bank_card
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="bin != null">
+                BIN = #{bin,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNo != null">
+                card_no = #{cardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cardType != null">
+                card_type = #{cardType,jdbcType=INTEGER},
+            </if>
+            <if test="cardName != null">
+                card_name = #{cardName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCode != null">
+                bank_code = #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="accountName != null">
+                account_name = #{accountName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactMobile != null">
+                contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="validDate != null">
+                valid_date = #{validDate,jdbcType=VARCHAR},
+            </if>
+            <if test="vcode != null">
+                vcode = #{vcode,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null">
+                id_number = #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShUserBankCard">
+    update sh_user_bank_card
+    set uid = #{uid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      BIN = #{bin,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=INTEGER},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_code = #{bankCode,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      valid_date = #{validDate,jdbcType=VARCHAR},
+      vcode = #{vcode,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectUserBankCardUid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_bank_card
+        where uid = #{uid,jdbcType=INTEGER} order by id desc;
+    </select>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_bank_card
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.bin != null">
+            and BIN = #{queryObject.bin}
+        </if>
+        <if test="queryObject!=null and queryObject.cardNo != null">
+            and card_no = #{queryObject.cardNo}
+        </if>
+        <if test="queryObject!=null and queryObject.cardType != null">
+            and card_type = #{queryObject.cardType}
+        </if>
+        <if test="queryObject!=null and queryObject.cardName != null">
+            and card_name = #{queryObject.cardName}
+        </if>
+        <if test="queryObject!=null and queryObject.bankName != null">
+            and bank_name = #{queryObject.bankName}
+        </if>
+        <if test="queryObject!=null and queryObject.bankCode != null">
+            and bank_code = #{queryObject.bankCode}
+        </if>
+        <if test="queryObject!=null and queryObject.accountName != null">
+            and account_name = #{queryObject.accountName}
+        </if>
+        <if test="queryObject!=null and queryObject.contactMobile != null">
+            and contact_mobile = #{queryObject.contactMobile}
+        </if>
+        <if test="queryObject!=null and queryObject.description != null">
+            and description = #{queryObject.description}
+        </if>
+        <if test="queryObject!=null and queryObject.validDate != null">
+            and valid_date = #{queryObject.validDate}
+        </if>
+        <if test="queryObject!=null and queryObject.vcode != null">
+            and vcode = #{queryObject.vcode}
+        </if>
+        <if test="queryObject!=null and queryObject.idNumber != null">
+            and id_number = #{queryObject.idNumber}
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and create_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and create_time <= #{queryObject.endCreateTime}]]>
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_user_bank_card
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.bin != null">
+            and BIN = #{queryObject.bin}
+        </if>
+        <if test="queryObject!=null and queryObject.cardNo != null">
+            and card_no = #{queryObject.cardNo}
+        </if>
+        <if test="queryObject!=null and queryObject.cardType != null">
+            and card_type = #{queryObject.cardType}
+        </if>
+        <if test="queryObject!=null and queryObject.cardName != null">
+            and card_name = #{queryObject.cardName}
+        </if>
+        <if test="queryObject!=null and queryObject.bankName != null">
+            and bank_name = #{queryObject.bankName}
+        </if>
+        <if test="queryObject!=null and queryObject.bankCode != null">
+            and bank_code = #{queryObject.bankCode}
+        </if>
+        <if test="queryObject!=null and queryObject.accountName != null">
+            and account_name = #{queryObject.accountName}
+        </if>
+        <if test="queryObject!=null and queryObject.contactMobile != null">
+            and contact_mobile = #{queryObject.contactMobile}
+        </if>
+        <if test="queryObject!=null and queryObject.description != null">
+            and description = #{queryObject.description}
+        </if>
+        <if test="queryObject!=null and queryObject.validDate != null">
+            and valid_date = #{queryObject.validDate}
+        </if>
+        <if test="queryObject!=null and queryObject.vcode != null">
+            and vcode = #{queryObject.vcode}
+        </if>
+        <if test="queryObject!=null and queryObject.idNumber != null">
+            and id_number = #{queryObject.idNumber}
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and create_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and create_time <= #{queryObject.endCreateTime}]]>
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                        <span>
+                            <img alt="image" class="img-circle" src="/static/image/profile_small.jpg">
+                        </span>
+                </div>
+            </li>
+            #foreach( $menu in $menuList )
+            <li #currentClass($menu.url, "class='active'")>
+            <a href="#">
+                <i class="$!{menu.icon}"></i>
+                <span class="nav-label">${menu.title}</span>
+                <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level">
+                #foreach( $m in $menu.mvList)
+                <li #currentClass($m.url, "class='active'")><a href="#springUrl(${m.url})">${m.title}</a></li>
+                #end
+            </ul>
+            </li>
+            #end
+        </ul>
+
+    </div>
+</nav>

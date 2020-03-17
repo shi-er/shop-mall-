@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShRoleMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShRole">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="SMALLINT"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="p_type" property="pType" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, sort, description, p_type
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShRole">
+    insert into sh_role (id, name, sort,
+      description, p_type)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=SMALLINT},
+      #{description,jdbcType=VARCHAR}, #{pType,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShRole">
+        insert into sh_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="pType != null">
+                p_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=SMALLINT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null">
+                #{pType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShRole">
+        update sh_role
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=SMALLINT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null">
+                p_type = #{pType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShRole">
+    update sh_role
+    set name = #{name,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=SMALLINT},
+      description = #{description,jdbcType=VARCHAR},
+      p_type = #{pType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_role
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.description != null">
+            and description = #{queryObject.description}
+        </if>
+        <if test="queryObject!=null and queryObject.pType != null">
+            and p_type = #{queryObject.pType}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_role
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.description != null">
+            and description = #{queryObject.description}
+        </if>
+        <if test="queryObject!=null and queryObject.pType != null">
+            and p_type = #{queryObject.pType}
+        </if>
+    </select>
+</mapper>

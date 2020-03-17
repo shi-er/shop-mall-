@@ -1,0 +1,13 @@
+#override("title") 
+error
+#end 
+#override("content")
+<div class="middle-box text-center animated fadeInDown">
+	<h1>error</h1>
+	<h3 class="font-bold">服务器出错啦！</h3>
+	<div class="error-desc">
+		$!{ex}
+	</div>
+</div>
+#end 
+#extends("/layout/mainlayout.html")

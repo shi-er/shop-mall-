@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.goods.mapper.ShGoodsDetailMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.goods.model.ShGoodsDetail">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="sold_amount" property="soldAmount" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.li.yun.biao.goods.model.ShGoodsDetail" extends="BaseResultMap">
+        <result column="image_url" property="imageUrl" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, price, goods_id, amount, sold_amount, number, status, create_time, modify_time
+  </sql>
+    <sql id="Blob_Column_List">
+    image_url
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from sh_goods_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_goods_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.goods.model.ShGoodsDetail">
+    insert into sh_goods_detail (id, price, goods_id, 
+      amount, sold_amount, number, 
+      status, create_time, modify_time, 
+      image_url)
+    values (#{id,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=INTEGER}, #{soldAmount,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{imageUrl,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.goods.model.ShGoodsDetail">
+        insert into sh_goods_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="soldAmount != null">
+                sold_amount,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="imageUrl != null">
+                image_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="soldAmount != null">
+                #{soldAmount,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="imageUrl != null">
+                #{imageUrl,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.goods.model.ShGoodsDetail">
+        update sh_goods_detail
+        <set>
+            <if test="price != null">
+                price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="soldAmount != null">
+                sold_amount = #{soldAmount,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="imageUrl != null">
+                image_url = #{imageUrl,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.li.yun.biao.goods.model.ShGoodsDetail">
+    update sh_goods_detail
+    set price = #{price,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      sold_amount = #{soldAmount,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      image_url = #{imageUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.goods.model.ShGoodsDetail">
+    update sh_goods_detail
+    set price = #{price,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      sold_amount = #{soldAmount,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectGoodsDetailList" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from sh_goods_detail
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </select>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from sh_goods_detail
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.goodsId != null">
+            and goods_id = #{queryObject.goodsId}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_goods_detail
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.goodsId != null">
+            and goods_id = #{queryObject.goodsId}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+    </select>
+</mapper>

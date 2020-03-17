@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShRolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShRolePermission">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="rid" property="rid" jdbcType="INTEGER"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="p_type" property="pType" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, rid, pid, p_type
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_role_permission
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_role_permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShRolePermission">
+    insert into sh_role_permission (id, rid, pid,
+      p_type)
+    values (#{id,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER},
+      #{pType,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShRolePermission">
+        insert into sh_role_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="rid != null">
+                rid,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="pType != null">
+                p_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="rid != null">
+                #{rid,jdbcType=INTEGER},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="pType != null">
+                #{pType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShRolePermission">
+        update sh_role_permission
+        <set>
+            <if test="rid != null">
+                rid = #{rid,jdbcType=INTEGER},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="pType != null">
+                p_type = #{pType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShRolePermission">
+    update sh_role_permission
+    set rid = #{rid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      p_type = #{pType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectRolePermissionByRid" resultType="int" parameterType="map">
+        select pid from sh_role_permission
+        where rid = #{rid,jdbcType=INTEGER} and p_type = #{pType};
+    </select>
+
+    <delete id="deleteRolePermissionByPidAndRid" parameterType="map">
+    delete from sh_role_permission
+    where rid = #{rid} and pid = #{pid} and p_type = #{pType};
+  </delete>
+
+    <select id="selectRolePermissionByPidAndRid" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_role_permission
+        where rid = #{rid} and pid = #{pid} and p_type = #{pType};
+    </select>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_role_permission
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.rid != null">
+            and rid = #{queryObject.rid}
+        </if>
+        <if test="queryObject!=null and queryObject.pid != null">
+            and pid = #{queryObject.pid}
+        </if>
+        <if test="queryObject!=null and queryObject.pType != null">
+            and p_type = #{queryObject.pType}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_role_permission
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.rid != null">
+            and rid = #{queryObject.rid}
+        </if>
+        <if test="queryObject!=null and queryObject.pid != null">
+            and pid = #{queryObject.pid}
+        </if>
+        <if test="queryObject!=null and queryObject.pType != null">
+            and p_type = #{queryObject.pType}
+        </if>
+    </select>
+</mapper>

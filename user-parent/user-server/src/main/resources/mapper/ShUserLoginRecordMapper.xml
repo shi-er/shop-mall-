@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShUserLoginRecordMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShUserLoginRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="realname" property="realname" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="TIMESTAMP"/>
+        <result column="login_adress" property="loginAdress" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, uid, realname, login_time, login_adress
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_login_record
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_user_login_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShUserLoginRecord">
+    insert into sh_user_login_record (id, uid, realname, 
+      login_time, login_adress)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{realname,jdbcType=VARCHAR}, 
+      #{loginTime,jdbcType=TIMESTAMP}, #{loginAdress,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShUserLoginRecord">
+        insert into sh_user_login_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="loginAdress != null">
+                login_adress,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginAdress != null">
+                #{loginAdress,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShUserLoginRecord">
+        update sh_user_login_record
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="realname != null">
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginAdress != null">
+                login_adress = #{loginAdress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShUserLoginRecord">
+    update sh_user_login_record
+    set uid = #{uid,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
+      login_adress = #{loginAdress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectUserLoginRecord" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_login_record
+        where uid = #{uid}
+        <if test="isLast!=null and isLast == '1'.toString() ">
+            order by id desc
+        </if>
+        limit 0,1;
+    </select>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_login_record
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.realname != null">
+            and realname = #{queryObject.realname}
+        </if>
+        <if test="queryObject!=null and queryObject.loginAdress != null">
+            and login_adress like CONCAT('%',#{queryObject.loginAdress},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and login_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and login_time <= #{queryObject.endCreateTime}]]>
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_user_login_record
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.realname != null">
+            and realname = #{queryObject.realname}
+        </if>
+        <if test="queryObject!=null and queryObject.loginAdress != null">
+            and login_adress like CONCAT('%',#{queryObject.loginAdress},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and login_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and login_time <= #{queryObject.endCreateTime}]]>
+        </if>
+    </select>
+</mapper>

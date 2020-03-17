@@ -1,0 +1,21 @@
+.navbar-brand {
+    float: left;
+    font-size: 18px;
+    height: 55px;
+    line-height: 21px;
+    padding: 17px 15px;
+    width: 220px;
+    margin-left: 40px;
+}
+
+.navbar-brand:focus, .navbar-brand:hover {
+    text-decoration: none;
+}
+
+.navbar-brand > img {
+    display: block;
+}
+
+.brand-logo {
+    color: #676a6c;
+}

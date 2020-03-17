@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShUserInfo">
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="pass_word" property="passWord" jdbcType="VARCHAR"/>
+        <result column="id_number" property="idNumber" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+        <result column="head_portrait" property="headPortrait" jdbcType="VARCHAR"/>
+        <result column="total_transaction" property="totalTransaction" jdbcType="BIGINT"/>
+        <result column="total_balance" property="totalBalance" jdbcType="BIGINT"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="register_address" property="registerAddress" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    uid, mobile, name, pass_word, id_number, status, level, head_portrait, total_transaction, 
+    total_balance, address, register_address, create_time, modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_info
+        where uid = #{uid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_user_info
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShUserInfo">
+    insert into sh_user_info (uid, mobile, name, 
+      pass_word, id_number, status, 
+      level, head_portrait, total_transaction, 
+      total_balance, address, register_address, 
+      create_time, modify_time)
+    values (#{uid,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{passWord,jdbcType=VARCHAR}, #{idNumber,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{headPortrait,jdbcType=VARCHAR}, #{totalTransaction,jdbcType=BIGINT}, 
+      #{totalBalance,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{registerAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShUserInfo">
+        insert into sh_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="passWord != null">
+                pass_word,
+            </if>
+            <if test="idNumber != null">
+                id_number,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="headPortrait != null">
+                head_portrait,
+            </if>
+            <if test="totalTransaction != null">
+                total_transaction,
+            </if>
+            <if test="totalBalance != null">
+                total_balance,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="registerAddress != null">
+                register_address,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null">
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=INTEGER},
+            </if>
+            <if test="headPortrait != null">
+                #{headPortrait,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTransaction != null">
+                #{totalTransaction,jdbcType=BIGINT},
+            </if>
+            <if test="totalBalance != null">
+                #{totalBalance,jdbcType=BIGINT},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null">
+                #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShUserInfo">
+        update sh_user_info
+        <set>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null">
+                pass_word = #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null">
+                id_number = #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
+            </if>
+            <if test="headPortrait != null">
+                head_portrait = #{headPortrait,jdbcType=VARCHAR},
+            </if>
+            <if test="totalTransaction != null">
+                total_transaction = #{totalTransaction,jdbcType=BIGINT},
+            </if>
+            <if test="totalBalance != null">
+                total_balance = #{totalBalance,jdbcType=BIGINT},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAddress != null">
+                register_address = #{registerAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShUserInfo">
+    update sh_user_info
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      total_transaction = #{totalTransaction,jdbcType=BIGINT},
+      total_balance = #{totalBalance,jdbcType=BIGINT},
+      address = #{address,jdbcType=VARCHAR},
+      register_address = #{registerAddress,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where uid = #{uid,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectUserInfoByMobile" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_info
+        where mobile = #{mobile}
+        <if test="passWord!=null and passWord != ''">
+            and pass_word = #{passWord}
+        </if>
+    </select>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_user_info
+        where 1=1
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.mobile != null">
+            and mobile = #{queryObject.mobile}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.passWord != null">
+            and passWord = #{queryObject.pass_word}
+        </if>
+        <if test="queryObject!=null and queryObject.idNumber != null">
+            and idNumber = #{queryObject.id_number}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.level != null">
+            and level = #{queryObject.level}
+        </if>
+        <if test="queryObject!=null and queryObject.headPortrait != null">
+            and head_portrait = #{queryObject.headPortrait}
+        </if>
+        <if test="queryObject!=null and queryObject.totalTransaction != null">
+            and total_transaction = #{queryObject.totalTransaction}
+        </if>
+        <if test="queryObject!=null and queryObject.totalBalance != null">
+            and total_balance = #{queryObject.totalBalance}
+        </if>
+        <if test="queryObject!=null and queryObject.address != null">
+            and address = like CONCAT('%',#{queryObject.address},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.registerAddress != null">
+            and register_address like CONCAT('%',#{queryObject.registerAddress},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and create_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and create_time <= #{queryObject.endCreateTime}]]>
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_user_info
+        where 1=1
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.mobile != null">
+            and mobile = #{queryObject.mobile}
+        </if>
+        <if test="queryObject!=null and queryObject.name != null">
+            and name = #{queryObject.name}
+        </if>
+        <if test="queryObject!=null and queryObject.passWord != null">
+            and passWord = #{queryObject.pass_word}
+        </if>
+        <if test="queryObject!=null and queryObject.idNumber != null">
+            and idNumber = #{queryObject.id_number}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.level != null">
+            and level = #{queryObject.level}
+        </if>
+        <if test="queryObject!=null and queryObject.headPortrait != null">
+            and head_portrait = #{queryObject.headPortrait}
+        </if>
+        <if test="queryObject!=null and queryObject.totalTransaction != null">
+            and total_transaction = #{queryObject.totalTransaction}
+        </if>
+        <if test="queryObject!=null and queryObject.totalBalance != null">
+            and total_balance = #{queryObject.totalBalance}
+        </if>
+        <if test="queryObject!=null and queryObject.address != null">
+            and address = like CONCAT('%',#{queryObject.address},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.registerAddress != null">
+            and register_address like CONCAT('%',#{queryObject.registerAddress},'%')
+        </if>
+        <if test="queryObject!=null and queryObject.startCreateTime != null ">
+            <![CDATA[ and create_time >= #{queryObject.startCreateTime}]]>
+        </if>
+        <if test="queryObject != null and queryObject.endCreateTime != null ">
+            <![CDATA[ and create_time <= #{queryObject.endCreateTime}]]>
+        </if>
+    </select>
+
+</mapper>

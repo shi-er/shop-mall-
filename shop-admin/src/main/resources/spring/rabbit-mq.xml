@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-1.3.xsd">
+    <context:property-placeholder location="classpath:properties/config.properties"/>
+    <!--配置connection-factory，指定连接rabbit server参数-->
+    <rabbit:connection-factory id="rabbitConnectionFactory" host="${mq.host}" port="${mq.port}"
+                               username="${mq.username}" password="${mq.password}"/>
+    <!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成-->
+    <rabbit:admin connection-factory="rabbitConnectionFactory"/>
+    <!--定义queue-->
+    <rabbit:queue name="topic.useradd" durable="true"/>
+    <rabbit:queue name="topic.sign" durable="true"/>
+    <rabbit:queue name="topic.goodadd" durable="true"/>
+
+    <!-- topic主题 -->
+    <rabbit:topic-exchange name="exchange_shop" xmlns="http://www.springframework.org/schema/rabbit" durable="true">
+        <bindings>
+            <binding queue="topic.useradd" pattern="useradd"/>
+            <binding queue="topic.sign" pattern="sign"/>
+            <binding queue="topic.goodadd" pattern="goodadd"/>
+        </bindings>
+    </rabbit:topic-exchange>
+
+    <!-- 创建rabbitTemplate 消息模板类 -->
+    <bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+        <constructor-arg ref="rabbitConnectionFactory"/>
+    </bean>
+
+
+</beans>

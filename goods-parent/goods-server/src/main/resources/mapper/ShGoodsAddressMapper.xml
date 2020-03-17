@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.goods.mapper.ShGoodsAddressMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.goods.model.ShGoodsAddress">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="consignee" property="consignee" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="provinceCode" property="provincecode" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="cityCode" property="citycode" jdbcType="VARCHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="areaCode" property="areacode" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="lngLat" property="lnglat" jdbcType="OTHER"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="modifyTime" property="modifytime" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="postcode" property="postcode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, uid, consignee, mobile, province, provinceCode, city, cityCode, area, areaCode, 
+    address, lngLat, createTime, modifyTime, status, sex, postcode
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods_address
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_goods_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.goods.model.ShGoodsAddress">
+    insert into sh_goods_address (id, uid, consignee, 
+      mobile, province, provinceCode, 
+      city, cityCode, area, 
+      areaCode, address, lngLat, 
+      createTime, modifyTime, status, 
+      sex, postcode)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{consignee,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{provincecode,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{citycode,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{areacode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{lnglat,jdbcType=OTHER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{postcode,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.goods.model.ShGoodsAddress">
+        insert into sh_goods_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="consignee != null">
+                consignee,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="provincecode != null">
+                provinceCode,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="citycode != null">
+                cityCode,
+            </if>
+            <if test="area != null">
+                area,
+            </if>
+            <if test="areacode != null">
+                areaCode,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="lnglat != null">
+                lngLat,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="modifytime != null">
+                modifyTime,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="postcode != null">
+                postcode,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="consignee != null">
+                #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="provincecode != null">
+                #{provincecode,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="citycode != null">
+                #{citycode,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="areacode != null">
+                #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="lnglat != null">
+                #{lnglat,jdbcType=OTHER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="postcode != null">
+                #{postcode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.goods.model.ShGoodsAddress">
+        update sh_goods_address
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="consignee != null">
+                consignee = #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="provincecode != null">
+                provinceCode = #{provincecode,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="citycode != null">
+                cityCode = #{citycode,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="areacode != null">
+                areaCode = #{areacode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="lnglat != null">
+                lngLat = #{lnglat,jdbcType=OTHER},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="postcode != null">
+                postcode = #{postcode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.goods.model.ShGoodsAddress">
+    update sh_goods_address
+    set uid = #{uid,jdbcType=INTEGER},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      provinceCode = #{provincecode,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      cityCode = #{citycode,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      areaCode = #{areacode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      lngLat = #{lnglat,jdbcType=OTHER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      postcode = #{postcode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectGoodsAddressByUid" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods_address
+        where uid = #{uid}
+        <if test="status !=null">
+            and status= #{status}
+        </if>
+        order by id desc ;
+    </select>
+
+    <update id="updateGoodsAddressStatus" parameterType="map">
+        update sh_goods_address
+        set status = #{status}
+        where uid = #{uid}
+        <if test="nowStatus !=null">
+            and status = #{nowStatus}
+        </if>
+        <if test="exceptId !=null">
+            and id != #{exceptId}
+        </if>
+    </update>
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods_address
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.consignee != null">
+            and consignee = #{queryObject.consignee}
+        </if>
+        <if test="queryObject!=null and queryObject.mobile != null">
+            and mobile = #{queryObject.mobile}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_goods_address
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.uid != null">
+            and uid = #{queryObject.uid}
+        </if>
+        <if test="queryObject!=null and queryObject.consignee != null">
+            and consignee = #{queryObject.consignee}
+        </if>
+        <if test="queryObject!=null and queryObject.mobile != null">
+            and mobile = #{queryObject.mobile}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+    </select>
+</mapper>

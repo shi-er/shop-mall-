@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShBankCardMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShBankCard">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="bank" property="bank" jdbcType="VARCHAR"/>
+        <result column="branchCode" property="branchcode" jdbcType="VARCHAR"/>
+        <result column="bank_code" property="bankCode" jdbcType="VARCHAR"/>
+        <result column="bank_id" property="bankId" jdbcType="INTEGER"/>
+        <result column="BIN" property="bin" jdbcType="VARCHAR"/>
+        <result column="cardName" property="cardname" jdbcType="VARCHAR"/>
+        <result column="cardNoLength" property="cardnolength" jdbcType="INTEGER"/>
+        <result column="cardType" property="cardtype" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="modifyTime" property="modifytime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, bank, branchCode, bank_code, bank_id, BIN, cardName, cardNoLength, cardType, 
+    createTime, modifyTime
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_card
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_bank_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShBankCard">
+    insert into sh_bank_card (id, bank, branchCode, 
+      bank_code, bank_id, BIN, 
+      cardName, cardNoLength, cardType, 
+      createTime, modifyTime)
+    values (#{id,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR}, #{branchcode,jdbcType=VARCHAR}, 
+      #{bankCode,jdbcType=VARCHAR}, #{bankId,jdbcType=INTEGER}, #{bin,jdbcType=VARCHAR}, 
+      #{cardname,jdbcType=VARCHAR}, #{cardnolength,jdbcType=INTEGER}, #{cardtype,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShBankCard">
+        insert into sh_bank_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bank != null">
+                bank,
+            </if>
+            <if test="branchcode != null">
+                branchCode,
+            </if>
+            <if test="bankCode != null">
+                bank_code,
+            </if>
+            <if test="bankId != null">
+                bank_id,
+            </if>
+            <if test="bin != null">
+                BIN,
+            </if>
+            <if test="cardname != null">
+                cardName,
+            </if>
+            <if test="cardnolength != null">
+                cardNoLength,
+            </if>
+            <if test="cardtype != null">
+                cardType,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="modifytime != null">
+                modifyTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bank != null">
+                #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="branchcode != null">
+                #{branchcode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCode != null">
+                #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankId != null">
+                #{bankId,jdbcType=INTEGER},
+            </if>
+            <if test="bin != null">
+                #{bin,jdbcType=VARCHAR},
+            </if>
+            <if test="cardname != null">
+                #{cardname,jdbcType=VARCHAR},
+            </if>
+            <if test="cardnolength != null">
+                #{cardnolength,jdbcType=INTEGER},
+            </if>
+            <if test="cardtype != null">
+                #{cardtype,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShBankCard">
+        update sh_bank_card
+        <set>
+            <if test="bank != null">
+                bank = #{bank,jdbcType=VARCHAR},
+            </if>
+            <if test="branchcode != null">
+                branchCode = #{branchcode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankCode != null">
+                bank_code = #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bankId != null">
+                bank_id = #{bankId,jdbcType=INTEGER},
+            </if>
+            <if test="bin != null">
+                BIN = #{bin,jdbcType=VARCHAR},
+            </if>
+            <if test="cardname != null">
+                cardName = #{cardname,jdbcType=VARCHAR},
+            </if>
+            <if test="cardnolength != null">
+                cardNoLength = #{cardnolength,jdbcType=INTEGER},
+            </if>
+            <if test="cardtype != null">
+                cardType = #{cardtype,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifytime != null">
+                modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShBankCard">
+    update sh_bank_card
+    set bank = #{bank,jdbcType=VARCHAR},
+      branchCode = #{branchcode,jdbcType=VARCHAR},
+      bank_code = #{bankCode,jdbcType=VARCHAR},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      BIN = #{bin,jdbcType=VARCHAR},
+      cardName = #{cardname,jdbcType=VARCHAR},
+      cardNoLength = #{cardnolength,jdbcType=INTEGER},
+      cardType = #{cardtype,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--自定义方法-->
+    <select id="selectBankCardByBin" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_card
+        where BIN = #{bin,jdbcType=VARCHAR} LIMIT 0, 1
+    </select>
+    <select id="selectByBinAndLen" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_card
+        where BIN = #{bin,jdbcType=VARCHAR} AND cardNoLength = #{cardNoLength, jdbcType=INTEGER} LIMIT 0, 1
+    </select>
+    <!--自定义-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+    <select id="getResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_bank_card
+        where 1=1
+        <if test="queryObject!=null and queryObject.bankId != null">
+            and bank_id = #{queryObject.bankId,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.bank != null">
+            and bank = #{queryObject.bank,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bin != null">
+            and BIN = #{queryObject.bin,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bankCode != null">
+            and bank_code =#{queryObject.bankCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.cardtype != null">
+            and cardType = #{queryObject.cardtype,jdbcType=VARCHAR}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_bank_card
+        where 1=1
+        <if test="queryObject!=null and queryObject.bankId != null">
+            and bank_id = #{queryObject.bankId,jdbcType=INTEGER}
+        </if>
+        <if test="queryObject!=null and queryObject.bank != null">
+            and bank = #{queryObject.bank,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bin != null">
+            and BIN = #{queryObject.bin,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.bankCode != null">
+            and bank_code =#{queryObject.bankCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryObject!=null and queryObject.cardtype != null">
+            and cardType = #{queryObject.cardtype,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

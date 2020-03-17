@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.user.mapper.ShBaseStreetMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.user.model.ShBaseStreet">
+        <id column="code" property="code" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="area_code" property="areaCode" jdbcType="INTEGER"/>
+        <result column="city_code" property="cityCode" jdbcType="INTEGER"/>
+        <result column="province_code" property="provinceCode" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    code, name, area_code, city_code, province_code
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_street
+        where code = #{code,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_base_street
+    where code = #{code,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.user.model.ShBaseStreet">
+    insert into sh_base_street (code, name, area_code, 
+      city_code, province_code)
+    values (#{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{areaCode,jdbcType=INTEGER}, 
+      #{cityCode,jdbcType=INTEGER}, #{provinceCode,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.user.model.ShBaseStreet">
+        insert into sh_base_street
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="areaCode != null">
+                area_code,
+            </if>
+            <if test="cityCode != null">
+                city_code,
+            </if>
+            <if test="provinceCode != null">
+                province_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=INTEGER},
+            </if>
+            <if test="cityCode != null">
+                #{cityCode,jdbcType=INTEGER},
+            </if>
+            <if test="provinceCode != null">
+                #{provinceCode,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.user.model.ShBaseStreet">
+        update sh_base_street
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                area_code = #{areaCode,jdbcType=INTEGER},
+            </if>
+            <if test="cityCode != null">
+                city_code = #{cityCode,jdbcType=INTEGER},
+            </if>
+            <if test="provinceCode != null">
+                province_code = #{provinceCode,jdbcType=INTEGER},
+            </if>
+        </set>
+        where code = #{code,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.user.model.ShBaseStreet">
+    update sh_base_street
+    set name = #{name,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=INTEGER},
+      city_code = #{cityCode,jdbcType=INTEGER},
+      province_code = #{provinceCode,jdbcType=INTEGER}
+    where code = #{code,jdbcType=INTEGER}
+  </update>
+
+    <select id="getBaseStreetList" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_street
+        where 1=1
+        <if test="provinceCode!=null and provinceCode!=''">
+            and province_code = #{provinceCode,jdbcType=INTEGER}
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            and city_code = #{cityCode,jdbcType=INTEGER}
+        </if>
+        <if test="areaCode!=null and areaCode!=''">
+            and area_code = #{areaCode,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="getStreetByParentsAndStreetName" resultMap="BaseResultMap" parameterType="Map">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_base_street
+        where 1=1
+        <if test="provinceCode!=null and provinceCode!=''">
+            and province_code = #{provinceCode,jdbcType=INTEGER}
+        </if>
+        <if test="cityCode!=null and cityCode!=''">
+            and city_code = #{cityCode,jdbcType=INTEGER}
+        </if>
+        <if test="areaCode!=null and areaCode!=''">
+            and area_code = #{areaCode,jdbcType=INTEGER}
+        </if>
+        <if test="streetName!=null and streetName!=''">
+            and name = #{streetName,jdbcType=VARCHAR}
+        </if>
+        limit 0,1;
+    </select>
+</mapper>

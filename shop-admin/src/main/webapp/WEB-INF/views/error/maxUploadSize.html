@@ -1,0 +1,19 @@
+#override("title")
+error
+#end
+
+#override("body")
+<body class="gray-bg">
+    <div class="text-center animated fadeInDown" style="padding-top: 50px;">
+        <h1 style="font-size: 100px;">文件超载了</h1>
+        <h3 class="font-bold">上传文件出错了！</h3>
+        <div class="error-desc">
+         	 抱歉，单个文件不能超过2M哦!
+            <br/>请返回重新选择文件上传
+            <!--<br/><a href="#springUrl('/index.html')" class="btn btn-primary m-t">主页</a>-->
+        </div>
+    </div>
+</body>
+#end
+
+#extends("/layout/base.html")

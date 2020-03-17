@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.li.yun.biao.goods.mapper.ShGoodsMapper">
+    <resultMap id="BaseResultMap" type="com.li.yun.biao.goods.model.ShGoods">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="category_id" property="categoryId" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="step" property="step" jdbcType="INTEGER"/>
+        <result column="show_case" property="showCase" jdbcType="INTEGER"/>
+        <result column="invoice" property="invoice" jdbcType="INTEGER"/>
+        <result column="refund" property="refund" jdbcType="INTEGER"/>
+        <result column="warranty" property="warranty" jdbcType="INTEGER"/>
+        <result column="p_type" property="pType" jdbcType="VARCHAR"/>
+        <result column="discount" property="discount" jdbcType="REAL"/>
+        <result column="summary" property="summary" jdbcType="LONGVARCHAR"/>
+        <result column="image_url" property="imageUrl" jdbcType="LONGVARCHAR"/>
+        <result column="description" property="description" jdbcType="LONGVARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, status, category_id, sort, step, show_case, invoice, refund, warranty, 
+    p_type, discount,summary, image_url, description , create_time, modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sh_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.li.yun.biao.goods.model.ShGoods">
+    insert into sh_goods (id, name, status, 
+      category_id, sort, step, 
+      show_case, invoice, refund, 
+      warranty, p_type, discount, 
+      create_time, modify_time, summary, 
+      image_url, description)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{categoryId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{step,jdbcType=INTEGER}, 
+      #{showCase,jdbcType=INTEGER}, #{invoice,jdbcType=INTEGER}, #{refund,jdbcType=INTEGER}, 
+      #{warranty,jdbcType=INTEGER}, #{pType,jdbcType=VARCHAR}, #{discount,jdbcType=REAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{summary,jdbcType=LONGVARCHAR}, 
+      #{imageUrl,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.li.yun.biao.goods.model.ShGoods">
+        insert into sh_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="step != null">
+                step,
+            </if>
+            <if test="showCase != null">
+                show_case,
+            </if>
+            <if test="invoice != null">
+                invoice,
+            </if>
+            <if test="refund != null">
+                refund,
+            </if>
+            <if test="warranty != null">
+                warranty,
+            </if>
+            <if test="pType != null">
+                p_type,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="summary != null">
+                summary,
+            </if>
+            <if test="imageUrl != null">
+                image_url,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="step != null">
+                #{step,jdbcType=INTEGER},
+            </if>
+            <if test="showCase != null">
+                #{showCase,jdbcType=INTEGER},
+            </if>
+            <if test="invoice != null">
+                #{invoice,jdbcType=INTEGER},
+            </if>
+            <if test="refund != null">
+                #{refund,jdbcType=INTEGER},
+            </if>
+            <if test="warranty != null">
+                #{warranty,jdbcType=INTEGER},
+            </if>
+            <if test="pType != null">
+                #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=REAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="summary != null">
+                #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                #{imageUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.li.yun.biao.goods.model.ShGoods">
+        update sh_goods
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="step != null">
+                step = #{step,jdbcType=INTEGER},
+            </if>
+            <if test="showCase != null">
+                show_case = #{showCase,jdbcType=INTEGER},
+            </if>
+            <if test="invoice != null">
+                invoice = #{invoice,jdbcType=INTEGER},
+            </if>
+            <if test="refund != null">
+                refund = #{refund,jdbcType=INTEGER},
+            </if>
+            <if test="warranty != null">
+                warranty = #{warranty,jdbcType=INTEGER},
+            </if>
+            <if test="pType != null">
+                p_type = #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=REAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="summary != null">
+                summary = #{summary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                image_url = #{imageUrl,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.li.yun.biao.goods.model.ShGoods">
+    update sh_goods
+    set name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      step = #{step,jdbcType=INTEGER},
+      show_case = #{showCase,jdbcType=INTEGER},
+      invoice = #{invoice,jdbcType=INTEGER},
+      refund = #{refund,jdbcType=INTEGER},
+      warranty = #{warranty,jdbcType=INTEGER},
+      p_type = #{pType,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      summary = #{summary,jdbcType=LONGVARCHAR},
+      image_url = #{imageUrl,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!--自定义方法-->
+    <sql id="pagination">
+        <if test="start != null">
+            <![CDATA[ limit #{start}, #{limit}]]>
+        </if>
+    </sql>
+
+    <select id="selectResultByQuery" resultMap="BaseResultMap" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        <include refid="Base_Column_List"/>
+        from sh_goods
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.categoryId != null">
+            and category_id = #{queryObject.categoryId}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.step != null">
+            and step = #{queryObject.step}
+        </if>
+        <if test="queryObject!=null and queryObject.showCase != null">
+            and show_case = #{queryObject.showCase}
+        </if>
+        <if test="queryObject!=null and queryObject.warranty != null">
+            and warranty = #{queryObject.warranty}
+        </if>
+        <if test="orderBy!=null and orderBy.toOrderBy != null">
+            order by ${orderBy.toOrderBy}
+        </if>
+        <include refid="pagination"/>
+    </select>
+
+    <select id="countResultByQuery" resultType="int" parameterType="com.li.yun.biao.common.dao.Query">
+        select
+        count(1)
+        from sh_goods
+        where 1=1
+        <if test="queryObject!=null and queryObject.id != null">
+            and id = #{queryObject.id}
+        </if>
+        <if test="queryObject!=null and queryObject.status != null">
+            and status = #{queryObject.status}
+        </if>
+        <if test="queryObject!=null and queryObject.categoryId != null">
+            and category_id = #{queryObject.categoryId}
+        </if>
+        <if test="queryObject!=null and queryObject.sort != null">
+            and sort = #{queryObject.sort}
+        </if>
+        <if test="queryObject!=null and queryObject.step != null">
+            and step = #{queryObject.step}
+        </if>
+        <if test="queryObject!=null and queryObject.showCase != null">
+            and show_case = #{queryObject.showCase}
+        </if>
+        <if test="queryObject!=null and queryObject.warranty != null">
+            and warranty = #{queryObject.warranty}
+        </if>
+    </select>
+</mapper>
